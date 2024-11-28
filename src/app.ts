@@ -2,6 +2,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import helmet from 'helmet';
+import globalErrorHandler from './middlewares/globalErrorHandler';
+import { rateLimiter } from './middlewares/rateLimiter';
 import router from './routes/route';
 
 export const app = express();
@@ -19,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
+app.use(rateLimiter);
 
 // routes
 app.get('/', (req: Request, res: Response) => {
@@ -28,4 +31,4 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/v1', router);
 
 // Note: Global Error Handler [Always should be called in bottom]
-// todo: app.use(errorHandler)
+app.use(globalErrorHandler);

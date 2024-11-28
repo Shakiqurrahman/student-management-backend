@@ -21,9 +21,9 @@ export default [
         rules: {
             ...tseslint.configs.recommended.rules,
             'no-console': 'warn',
-            'no-unused-vars': 'error',
-            // 'no-undef': 'error',
+            'no-unused-vars': 'warn',
             'prefer-const': 'error',
+            // 'no-undef': 'error',
             eqeqeq: 'error',
         },
     },
