@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Request, Response } from 'express';
 import helmet from 'helmet';
 import globalErrorHandler from './middlewares/globalErrorHandler';
+import notFound from './middlewares/notFound';
 import { rateLimiter } from './middlewares/rateLimiter';
 import router from './routes/route';
 
@@ -30,5 +31,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/v1', router);
 
-// Note: Global Error Handler [Always should be called in bottom]
+// Not Found Handler [should be after all routes]
+app.use(notFound);
+
+// Global Error Handler [Always should be not found handlers]
 app.use(globalErrorHandler);

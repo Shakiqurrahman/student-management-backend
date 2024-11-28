@@ -1,6 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { config } from '../config/config';
 
+type TErrorResponse = {
+    message: string;
+    success: boolean;
+    error: any;
+    stack?: string;
+};
+
 const globalErrorHandler = (
     error: any,
     req: Request,
@@ -8,13 +15,30 @@ const globalErrorHandler = (
     next: NextFunction,
 ) => {
     const statusCode = 500;
-    const message = error.message || 'Something went wrong!';
+    let errorResponse: TErrorResponse;
+    if (error.name === 'ZodError') {
+        errorResponse = {
+            message: 'Validation Failed',
+            success: false,
+            error: {
+                name: 'ValidationError',
+                errors: error.errors,
+            },
+            stack: config.node_env === 'dev' ? error.stack : {},
+        };
+    } else {
+        errorResponse = {
+            message: error.message || 'Something Went Wrong',
+            success: false,
+            error: {
+                name: error.name || 'Error',
+                errors: error.errors,
+            },
+            stack: error.stack,
+        };
+    }
 
-    res.status(statusCode).json({
-        success: false,
-        message: message,
-        errorStack: config.node_env === 'dev' ? error.stack : {},
-    });
+    res.status(statusCode).json(errorResponse);
 };
 
 export default globalErrorHandler;
