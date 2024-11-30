@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 
-const asyncHandler = (
-    fn: (req: Request, res: Response, next: NextFunction) => Promise<unknown>,
-) => {
+const asyncHandler = (fn: RequestHandler) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        Promise.resolve(fn(req, res, next)).catch(next);
+        Promise.resolve(fn(req, res, next)).catch((err) => next(err));
     };
 };
 

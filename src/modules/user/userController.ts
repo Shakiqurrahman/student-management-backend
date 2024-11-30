@@ -1,11 +1,10 @@
-import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import asyncHandler from '../../utils/asyncHandler';
 import sendResponse from '../../utils/sendResponse';
 import { userServices } from './userServices';
 import { loginSchemaValidation, userSchemaValidation } from './userValidation';
 
-const registerUser = asyncHandler(async (req: Request, res: Response) => {
+const registerUser = asyncHandler(async (req, res) => {
     const validatedData = userSchemaValidation.parse(req.body);
     const result = await userServices.registerUserIntoDB(validatedData);
 
@@ -17,7 +16,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     });
 });
 
-const loginUser = asyncHandler(async (req: Request, res: Response) => {
+const loginUser = asyncHandler(async (req, res) => {
     const validatedData = loginSchemaValidation.parse(req.body);
 
     const result = await userServices.loginUserFromDB(validatedData);

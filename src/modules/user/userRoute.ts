@@ -1,6 +1,4 @@
-import { Request, Response, Router } from 'express';
-import httpStatus from 'http-status';
-import sendResponse from '../../utils/sendResponse';
+import { Router } from 'express';
 import { userController } from './userController';
 
 const router = Router();
