@@ -3,17 +3,16 @@ type TGuardianRelation = 'Father' | 'Mother' | 'Brother' | 'Sister' | 'Other';
 export type TGurdian = {
     gurdianName: string;
     gurdianRelation: TGuardianRelation;
-    gurdianNumber: number;
+    gurdianNumber: string;
 };
 
 export type TStudent = {
     fullName: string;
-    studentId: string;
     profile?: string;
     email?: string;
-    phone?: number;
+    phone?: string;
     gender: 'Male' | 'Female' | 'Other';
-    dateOfBirth: Date;
+    dateOfBirth: Date | string;
     presentAddress: string;
     permanentAddress: string;
     gurdian: TGurdian;

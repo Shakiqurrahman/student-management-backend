@@ -6,4 +6,4 @@ const router = Router();
 router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
 
-export const userRoute = router;
+export const userRoutes = router;
