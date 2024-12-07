@@ -1,5 +1,7 @@
+import AppError from '../../errors/AppError';
 import { TUser } from './userInterface';
 import { User } from './userModel';
+import httpStatus from 'http-status';
 
 const registerUserIntoDB = async (
     userData: TUser,
@@ -9,7 +11,7 @@ const registerUserIntoDB = async (
     });
 
     if (existingUser) {
-        throw new Error(`User already exists.`);
+        throw new AppError(httpStatus.CONFLICT, `User already exists.`);
     }
 
     const newUser = await User.create(userData);
@@ -27,7 +29,7 @@ const loginUserFromDB = async (
     });
 
     if (!user || !(await user.comparePassword(userData.password as string))) {
-        throw new Error('Invalid credentials.');
+        throw new AppError(httpStatus.EXPECTATION_FAILED, 'Invalid credentials.');
     }
 
     const { password, ...cleanedUser } = user.toObject();

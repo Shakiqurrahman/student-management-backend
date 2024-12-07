@@ -1,3 +1,4 @@
+import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { TStudent } from './studentInterface';
 import { Student } from './studentModel';
@@ -22,7 +23,7 @@ const getTotalStudentsFromDB = async (): Promise<number> => {
 const getStudentByIdFromDB = async (studentId: string): Promise<TStudent> => {
     const student = await Student.findById(studentId);
     if (!student) {
-        throw new Error('Student not found.');
+        throw new AppError(httpStatus.NOT_FOUND, 'Student not found.');
     }
     return student;
 };
@@ -37,7 +38,7 @@ const updateStudentInDB = async (
         { new: true },
     );
     if (!student) {
-        throw new Error('Student not found.');
+        throw new AppError(httpStatus.NOT_FOUND, 'Student not found.');
     }
     return student;
 };
@@ -46,7 +47,7 @@ const deleteStudentFromDB = async (studentId: string): Promise<void> => {
     const result = await Student.findByIdAndDelete(studentId);
 
     if (!result) {
-        throw new AppError(404, 'Student not found');
+        throw new AppError(httpStatus.NOT_FOUND, 'Student not found');
     }
 };
 
