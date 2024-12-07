@@ -3,10 +3,8 @@ import AppError from '../../errors/AppError';
 import { TStudent } from './studentInterface';
 import { Student } from './studentModel';
 
-const createStudentIntoDB = async (
-    studentData: TStudent,
-): Promise<TStudent> => {
-    const student = await Student.create(studentData);
+const createStudentIntoDB = async (payload: TStudent): Promise<TStudent> => {
+    const student = await Student.create(payload);
     return student;
 };
 
@@ -30,13 +28,11 @@ const getStudentByIdFromDB = async (studentId: string): Promise<TStudent> => {
 
 const updateStudentInDB = async (
     studentId: string,
-    updatedStudentData: Partial<TStudent>,
+    payload: Partial<TStudent>,
 ): Promise<TStudent> => {
-    const student = await Student.findByIdAndUpdate(
-        studentId,
-        updatedStudentData,
-        { new: true },
-    );
+    const student = await Student.findByIdAndUpdate(studentId, payload, {
+        new: true,
+    });
     if (!student) {
         throw new AppError(httpStatus.NOT_FOUND, 'Student not found.');
     }
