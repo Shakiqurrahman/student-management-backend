@@ -1,3 +1,4 @@
+import AppError from '../../errors/AppError';
 import { TStudent } from './studentInterface';
 import { Student } from './studentModel';
 
@@ -42,7 +43,11 @@ const updateStudentInDB = async (
 };
 
 const deleteStudentFromDB = async (studentId: string): Promise<void> => {
-    await Student.findByIdAndDelete(studentId);
+    const result = await Student.findByIdAndDelete(studentId);
+
+    if (!result) {
+        throw new AppError(404, 'Student not found');
+    }
 };
 
 export const studentServices = {

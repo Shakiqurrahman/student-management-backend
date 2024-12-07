@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { ErrorRequestHandler } from 'express';
 import { config } from '../config/config';
 
 type TErrorResponse = {
@@ -8,12 +8,7 @@ type TErrorResponse = {
     stack?: string;
 };
 
-const globalErrorHandler = (
-    error: any,
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) => {
+const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     const statusCode = 500;
     let errorResponse: TErrorResponse;
     if (error.name === 'ZodError') {
