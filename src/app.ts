@@ -10,7 +10,10 @@ import router from './routes/route';
 export const app = express();
 
 const corsOptions = {
-    origin: ['http://localhost:3000'],
+    origin: [
+        'http://localhost:3000',
+        'https://student-management-client-two.vercel.app',
+    ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
