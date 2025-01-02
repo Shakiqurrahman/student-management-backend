@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import { config } from '../../config/config';
 import asyncHandler from '../../utils/asyncHandler';
 import sendResponse from '../../utils/sendResponse';
 import { userServices } from './userServices';
@@ -21,6 +22,12 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const result = await userServices.loginUserFromDB(validatedData);
 
+    res.cookie('accessToken', result.accessToken, {
+        httpOnly: true,
+        secure: config.NODE_ENV === 'production',
+        // sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000, // Cookie expiration time (1 week)
+    });
     sendResponse(res, {
         statusCode: httpStatus.ACCEPTED,
         success: true,

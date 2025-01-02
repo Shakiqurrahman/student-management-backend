@@ -72,6 +72,7 @@ userModel.methods.generateAccessToken = async function () {
         {
             _id: this._id,
             userName: this.userName,
+            email: this.email,
             role: this.role,
         },
         config.access_token_secret as string,
