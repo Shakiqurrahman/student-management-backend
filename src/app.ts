@@ -12,7 +12,7 @@ export const app = express();
 const corsOptions = {
     origin: [
         'http://localhost:5173',
-        'https://student-management-client-two.vercel.app',
+        'https://student-management-spi.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
