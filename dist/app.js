@@ -1,22 +1,26 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.app = void 0;
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const cors_1 = __importDefault(require("cors"));
-const express_1 = __importDefault(require("express"));
-const helmet_1 = __importDefault(require("helmet"));
-const globalErrorHandler_1 = __importDefault(require("./middlewares/globalErrorHandler"));
-const notFound_1 = __importDefault(require("./middlewares/notFound"));
-const rateLimiter_1 = require("./middlewares/rateLimiter");
-const route_1 = __importDefault(require("./routes/route"));
+const cookie_parser_1 = __importDefault(require('cookie-parser'));
+const cors_1 = __importDefault(require('cors'));
+const express_1 = __importDefault(require('express'));
+const helmet_1 = __importDefault(require('helmet'));
+const globalErrorHandler_1 = __importDefault(
+    require('./middlewares/globalErrorHandler'),
+);
+const notFound_1 = __importDefault(require('./middlewares/notFound'));
+const rateLimiter_1 = require('./middlewares/rateLimiter');
+const route_1 = __importDefault(require('./routes/route'));
 exports.app = (0, express_1.default)();
 const corsOptions = {
     origin: [
         'http://localhost:5173',
-        'https://student-management-client-two.vercel.app',
+        'https://student-management-spi.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
